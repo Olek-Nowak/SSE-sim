@@ -1,6 +1,5 @@
 *.db
 *.o
-*.exe
 
 # Zbędne katalogi
 test/

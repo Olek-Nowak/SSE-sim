@@ -38,6 +38,7 @@ void SSE_register::setBits(int start, std::string bits) {
 }
 
 float SSE_register::operator()(int num) {
+    // Nietypowa wartość dla debugowania
     if(num > 3)
         return -1.9f;
     std::string temp = "";

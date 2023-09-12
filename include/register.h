@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include <cmath>
 
-/// @remark Turns out std::register already exists, have to use different name 
+/// @remark Klasa std::register już istnieje, wymagana inna nazwa
 class SSE_register {
 private:
     std::vector<bool> data;

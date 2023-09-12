@@ -1,24 +1,20 @@
 #include "register.h"
+#include "windowManager.h"
 #include <fstream>
 #include <SFML/Graphics.hpp>
 using namespace std;
 
-sf::RenderWindow* mainWindow;
-sf::Font font;
+windowManager* wm;
 std::vector<SSE_register> xmm;
 std::vector<SSE_register> backup;
 fstream instructions;
 
-// Main holds all registers, draws to screen, polls inputs and updates
-// Registers hold all values and perform basic operations
+// Main przechowuje rejestry, odczytuje z pliku, wykonuje instrukcje oraz wywołuje windowManager
+// WindowManager rysuje okno oraz pobiera inputy użytkownika
+// Rejestry przechowują wartości i wykonują podstawowe operacje / konwersje
 
 void setup() {
-    mainWindow = new sf::RenderWindow(sf::VideoMode(900, 600), "SEE-sim");
-    mainWindow->setKeyRepeatEnabled(false);
-    mainWindow->setFramerateLimit(60);
-    mainWindow->setVerticalSyncEnabled(1);
-    mainWindow->clear();
-    font.loadFromFile("../resource/arial.ttf");
+    wm = new windowManager();
     instructions.open("../resource/main.asm");
     xmm.resize(8);
     backup.resize(8);
@@ -27,70 +23,48 @@ void setup() {
 }
 
 void redraw() {
-    for(int i = 0; i < xmm.size(); i++) {
-        sf::Text name;
-        name.setFont(font);
-        string t = "XMM ";
-        t += char(i + 48);
-        name.setString(t);
-        name.setCharacterSize(20);
-        name.setFillColor(sf::Color::White);
-        name.setPosition(65 + (99 * i), 90);
-        mainWindow->draw(name);
-        for(int j = 0; j < 4; j++) {
-            sf::Text temp;
-            temp.setFont(font);
-            string t = to_string(xmm[i](j));
-            temp.setString(t);
-            temp.setCharacterSize(20);
-            temp.setFillColor(sf::Color::White);
-            temp.setPosition(50 + (100 * i), 200 + (100 * j));
-            mainWindow->draw(temp);
-
-        }
-
-    }
-    mainWindow->display();
+    wm->clear();
+    wm->addHeaders();
+    for(int i = 0; i < xmm.size(); i++)
+        wm->updateRegister(i, backup[i], xmm[i]);
+    wm->show();
 
 
 }
 
-void update() {
-    mainWindow->clear();
-    sf::Event event;
-    while(mainWindow->pollEvent(event)) {
-        switch (event.type)
+void handleInput() {
+    sf::Event e = wm->pollEvents();
+    switch(e.type)
+    {
+    case sf::Event::Closed:
+        wm->exit();
+        break;
+    case sf::Event::KeyPressed:
+        switch (e.key.code)
         {
-        case sf::Event::Closed:
-            mainWindow->close();
+        case sf::Keyboard::Left:
+            // previous step
             break;
-        case sf::Event::KeyPressed:
-            switch (event.key.code)
-            {
-            case sf::Keyboard::Left:
-                // previous step
-                break;
-            case sf::Keyboard::Right:
-                // next step
-                break;
-            case sf::Keyboard::Space:
-                // debug
-                break;
-            }
+        case sf::Keyboard::Right:
+            // next step
             break;
-
+        case sf::Keyboard::Space:
+            // debug
+            redraw();
+            break;
         }
-
+        break;
     }
-    
-    redraw();
-
 
 }
 
 int main() {
     setup();
+    redraw();
     xmm[0].setBits(0, "00000000000000000000000000000010");
-    while(mainWindow->isOpen())
-        update();
+    while(wm->getEnabled()) {
+        handleInput();
+
+    }
+
 }
