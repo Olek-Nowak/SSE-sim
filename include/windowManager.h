@@ -30,7 +30,7 @@ public:
     /// @param next Nowy stan rejestru
     void updateRegister(int number, SSE_register prev, SSE_register next);
     /// @brief 
-    void updateInstruction();
+    void updateInstruction(std::string newInst);
     /// @brief Zamyka główne okno
     void exit();
     /// @brief 

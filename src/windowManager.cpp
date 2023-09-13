@@ -5,7 +5,7 @@ using namespace std;
 // TODO: responsive window resizing
 
 windowManager::windowManager() {
-    mainWindow = new sf::RenderWindow(sf::VideoMode(900, 600), "SEE-sim");
+    mainWindow = new sf::RenderWindow(sf::VideoMode(900, 800), "SSE-sim");
     mainWindow->setKeyRepeatEnabled(false);
     mainWindow->setFramerateLimit(60);
     mainWindow->setVerticalSyncEnabled(1);
@@ -61,7 +61,7 @@ void windowManager::updateRegister(int number, SSE_register prev, SSE_register n
         sf::Text temp;
         string t;
         temp.setFont(font);
-        temp.setCharacterSize(20);
+        temp.setCharacterSize(18);
         temp.setFillColor(sf::Color::White);
         // Jeżeli nastepiła zmiana, koloruj na zielono
         if(next(j) != prev(j))
@@ -72,6 +72,17 @@ void windowManager::updateRegister(int number, SSE_register prev, SSE_register n
         mainWindow->draw(temp);
 
     }
+
+}
+
+void windowManager::updateInstruction(std::string newInst) {
+    sf::Text inst;
+    inst.setFont(font);
+    inst.setString(newInst);
+    inst.setCharacterSize(20);
+    inst.setFillColor(sf::Color::White);
+    inst.setPosition(100, 700);
+    mainWindow->draw(inst);
 
 }
 
