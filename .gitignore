@@ -2,6 +2,7 @@
 *.o
 
 # Zbędne katalogi
+docs/latex/
 test/
 build/
 .vscode/

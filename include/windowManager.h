@@ -22,18 +22,19 @@ public:
     sf::Event pollEvents();
     /// @brief Czyści okno
     void clear();
-    /// @brief Rysuje elementy stałe / nagłówki
+    /// @brief Wyświetla elementy nagłówki
     void addHeaders();
     /// @brief Uaktualnia wyświetlany stan danego rejestru
     /// @param number Numer rejestru do uaktualnienia (0-7)
     /// @param prev Poprzedni stan rejestru
     /// @param next Nowy stan rejestru
     void updateRegister(int number, SSE_register prev, SSE_register next);
-    /// @brief 
+    /// @brief Uaktualnia wyświetlaną instrukcję
+    /// @param newInst Nowa instrukcja
     void updateInstruction(std::string newInst);
     /// @brief Zamyka główne okno
     void exit();
-    /// @brief 
+    /// @brief Wyświetla wszystkie przypisane do okna elementy. Musi być wywołane po uaktualnieniu.
     void show();
     
 };
