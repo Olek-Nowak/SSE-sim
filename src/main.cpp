@@ -72,16 +72,16 @@ void parseInstruction() {
     }
     // Ładowanie wektorowe
     // Wyrónianie obszaru pamięci do 16 nie jest sprawdzane - movaps równoważne movups
-    else if(parsed[0] == "movaps" || parsed[0] == "movups") {
+    else if(parsed[0] == "movaps" || parsed[0] == "movups" || parsed[0] == "MOVAPS" || parsed[0] == "MOVUPS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 xmm[numa - 48] = xmm[numb - 48];
 
             }
@@ -94,16 +94,16 @@ void parseInstruction() {
 
     }
     // Ładowanie skalarne
-    else if(parsed[0] == "movss") {
+    else if(parsed[0] == "movss" || parsed[0] == "MOVSS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 xmm[numa - 48].setFloats(0, xmm[numb - 48](0));
 
             }
@@ -116,16 +116,16 @@ void parseInstruction() {
 
     }
     // Dodawanie wektorowe
-    else if(parsed[0] == "addps") {
+    else if(parsed[0] == "addps" || parsed[0] == "ADDPS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 for(int i = 0; i < 4; i++)
                     xmm[numa - 48].setFloats(i, xmm[numa - 48](i) + xmm[numb - 48](i));
 
@@ -140,16 +140,16 @@ void parseInstruction() {
 
     }
     // Dodawanie skalarne
-    else if(parsed[0] == "addss") {
+    else if(parsed[0] == "addss" || parsed[0] == "ADDSS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 xmm[numa - 48].setFloats(0, xmm[numa - 48](0) + xmm[numb - 48](0));
 
             }
@@ -162,16 +162,16 @@ void parseInstruction() {
 
     }
     // Odejmowanie wektorowe
-    else if(parsed[0] == "subps") {
+    else if(parsed[0] == "subps" || parsed[0] == "SUBPS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 for(int i = 0; i < 4; i++)
                     xmm[numa - 48].setFloats(i, xmm[numa - 48](i) - xmm[numb - 48](i));
 
@@ -186,16 +186,16 @@ void parseInstruction() {
 
     }
     // Odejmowanie skalarne
-    else if(parsed[0] == "subss") {
+    else if(parsed[0] == "subss" || parsed[0] == "SUBSS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 xmm[numa - 48].setFloats(0, xmm[numa - 48](0) - xmm[numb - 48](0));
 
             }
@@ -208,16 +208,16 @@ void parseInstruction() {
 
     }
     // Mnożenie wektorowe
-    else if(parsed[0] == "mulps") {
+    else if(parsed[0] == "mulps" || parsed[0] == "MULPS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 for(int i = 0; i < 4; i++)
                     xmm[numa - 48].setFloats(i, xmm[numa - 48](i) * xmm[numb - 48](i));
 
@@ -232,16 +232,16 @@ void parseInstruction() {
 
     }
     // Mnożenie skalarne
-    else if(parsed[0] == "mulss") {
+    else if(parsed[0] == "mulss" || parsed[0] == "MULSS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 xmm[numa - 48].setFloats(0, xmm[numa - 48](0) * xmm[numb - 48](0));
 
             }
@@ -254,16 +254,16 @@ void parseInstruction() {
 
     }
     // Dzielenie wektorowe
-    else if(parsed[0] == "divps") {
+    else if(parsed[0] == "divps" || parsed[0] == "DIVPS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 for(int i = 0; i < 4; i++)
                     xmm[numa - 48].setFloats(i, xmm[numa - 48](i) / xmm[numb - 48](i));
 
@@ -278,16 +278,16 @@ void parseInstruction() {
 
     }
     // Dzielenie skalarne
-    else if(parsed[0] == "divss") {
+    else if(parsed[0] == "divss" || parsed[0] == "DIVSS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 xmm[numa - 48].setFloats(0, xmm[numa - 48](0) / xmm[numb - 48](0));
 
             }
@@ -300,16 +300,16 @@ void parseInstruction() {
 
     }
     // Pierwiastek kwadratowy wektorowy
-    else if(parsed[0] == "addps") {
+    else if(parsed[0] == "sqrtps" || parsed[0] == "SQRTPS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 for(int i = 0; i < 4; i++)
                     xmm[numa - 48].setFloats(i, sqrt(xmm[numb - 48](i)));
 
@@ -324,21 +324,150 @@ void parseInstruction() {
 
     }
     // Pierwiastek kwadratowy skalarny
-    else if(parsed[0] == "addss") {
+    else if(parsed[0] == "sqrtss" || parsed[0] == "SQRTSS") {
         parsed[1].pop_back();
         char numa = parsed[1].back();
         parsed[1].pop_back();
         // Celem musi być rejestr
-        if(parsed[1] == "xmm") {
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
             char numb = parsed[2].back();
             parsed[2].pop_back();
             // Żródłem może być rejestr lub zmienna
-            if(parsed[2] == "xmm") {
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
                 xmm[numa - 48].setFloats(0, sqrt(xmm[numb - 48](0)));
 
             }
             else {
                 xmm[numa - 48].setFloats(0, sqrt(mm->find(parsed[2] + numb)(0)));
+
+            }
+
+        }
+
+    }
+    // Porównianie == wektorowe
+    else if(parsed[0] == "cmpeqps" || parsed[0] == "CMPEQPS") {
+        parsed[1].pop_back();
+        char numa = parsed[1].back();
+        parsed[1].pop_back();
+        // Celem musi być rejestr
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
+            char numb = parsed[2].back();
+            parsed[2].pop_back();
+            // Żródłem musi być rejestr
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
+                for(int i = 0; i < 4; i++) {
+                    if(xmm[numa - 48](i) == xmm[numb - 48](i))
+                        xmm[numa - 48].setBits(i*32, "11111111111111111111111111111111");
+                    else xmm[numa - 48].setBits(i*32, "00000000000000000000000000000000");
+
+                }
+
+            }
+
+        }
+
+    }
+    // Porównianie == skalarne
+    else if(parsed[0] == "cmpeqss" || parsed[0] == "CMPEQSS") {
+        parsed[1].pop_back();
+        char numa = parsed[1].back();
+        parsed[1].pop_back();
+        // Celem musi być rejestr
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
+            char numb = parsed[2].back();
+            parsed[2].pop_back();
+            // Żródłem musi być rejestr
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
+                if(xmm[numa - 48](0) == xmm[numb - 48](0))
+                    xmm[numa - 48].setBits(0, "11111111111111111111111111111111");
+                else xmm[numa - 48].setBits(0, "00000000000000000000000000000000");
+
+            }
+
+        }
+
+    }
+    // Porównianie < wektorowe
+    else if(parsed[0] == "cmpltps" || parsed[0] == "CMPLTPS") {
+        parsed[1].pop_back();
+        char numa = parsed[1].back();
+        parsed[1].pop_back();
+        // Celem musi być rejestr
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
+            char numb = parsed[2].back();
+            parsed[2].pop_back();
+            // Żródłem musi być rejestr
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
+                for(int i = 0; i < 4; i++) {
+                    if(xmm[numa - 48](i) < xmm[numb - 48](i))
+                        xmm[numa - 48].setBits(i*32, "11111111111111111111111111111111");
+                    else xmm[numa - 48].setBits(i*32, "00000000000000000000000000000000");
+
+                }
+
+            }
+
+        }
+
+    }
+    // Porównianie < skalarne
+    else if(parsed[0] == "cmpltss" || parsed[0] == "CMPLTSS") {
+        parsed[1].pop_back();
+        char numa = parsed[1].back();
+        parsed[1].pop_back();
+        // Celem musi być rejestr
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
+            char numb = parsed[2].back();
+            parsed[2].pop_back();
+            // Żródłem musi być rejestr
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
+                if(xmm[numa - 48](0) < xmm[numb - 48](0))
+                    xmm[numa - 48].setBits(0, "11111111111111111111111111111111");
+                else xmm[numa - 48].setBits(0, "00000000000000000000000000000000");
+
+            }
+
+        }
+
+    }
+    // Porównianie !<= wektorowe
+    else if(parsed[0] == "cmpnleps" || parsed[0] == "CMPNLEPS") {
+        parsed[1].pop_back();
+        char numa = parsed[1].back();
+        parsed[1].pop_back();
+        // Celem musi być rejestr
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
+            char numb = parsed[2].back();
+            parsed[2].pop_back();
+            // Żródłem musi być rejestr
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
+                for(int i = 0; i < 4; i++) {
+                    if(xmm[numa - 48](i) > xmm[numb - 48](i))
+                        xmm[numa - 48].setBits(i*32, "11111111111111111111111111111111");
+                    else xmm[numa - 48].setBits(i*32, "00000000000000000000000000000000");
+
+                }
+
+            }
+
+        }
+
+    }
+    // Porównianie !<= skalarne
+    else if(parsed[0] == "cmpnless" || parsed[0] == "CMPNLESS") {
+        parsed[1].pop_back();
+        char numa = parsed[1].back();
+        parsed[1].pop_back();
+        // Celem musi być rejestr
+        if(parsed[1] == "xmm" || parsed[1] == "XMM") {
+            char numb = parsed[2].back();
+            parsed[2].pop_back();
+            // Żródłem musi być rejestr
+            if(parsed[2] == "xmm" || parsed[2] == "XMM") {
+                if(xmm[numa - 48](0) > xmm[numb - 48](0))
+                    xmm[numa - 48].setBits(0, "11111111111111111111111111111111");
+                else xmm[numa - 48].setBits(0, "00000000000000000000000000000000");
 
             }
 
